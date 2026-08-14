@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.pytest_cache/
+
+node_modules/
+.next/
+out/
+.DS_Store
+
+backend/data/
+data/
+*.log
+
+# Local Claude Code session config — machine-specific paths, not project config
+.claude/settings.local.json

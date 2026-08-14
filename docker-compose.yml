@@ -1,0 +1,101 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: editease-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "512mb", "--maxmemory-policy", "allkeys-lru"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks: [editease]
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: editease-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - editease_data:/data
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/api/health',timeout=3); sys.exit(0)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks: [editease]
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: editease-worker
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      C_FORCE_ROOT: "1"
+    command: ["celery", "-A", "app.core.celery_app.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - editease_data:/data
+    networks: [editease]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://backend:8000}
+    container_name: editease-frontend
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://backend:8000}
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    networks: [editease]
+
+  flower:
+    image: mher/flower:2.0
+    container_name: editease-flower
+    restart: unless-stopped
+    command: ["celery", "--broker=redis://redis:6379/1", "flower", "--port=5555"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "${FLOWER_PORT:-5555}:5555"
+    profiles: ["monitoring"]
+    networks: [editease]
+
+volumes:
+  redis_data:
+  editease_data:
+
+networks:
+  editease:
+    driver: bridge
