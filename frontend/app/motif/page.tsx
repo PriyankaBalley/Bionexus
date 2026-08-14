@@ -275,7 +275,6 @@ export default function MotifPage() {
       <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-3 mb-1">
-            <span className="bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded">Module 4 · GF-3</span>
             <h1 className="text-xl font-bold text-gray-900">Conserved Motif Analysis</h1>
           </div>
           <p className="text-sm text-gray-500">

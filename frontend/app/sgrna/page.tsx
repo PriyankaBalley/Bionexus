@@ -57,7 +57,7 @@ export default function SgrnaPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Module 7 — sgRNA Design</h1>
+          <h1 className="text-2xl font-bold mb-1">sgRNA Design</h1>
           <p className="text-zinc-600">
             Multi-model CRISPR sgRNA design. CHOPCHOP-style table with off-target search,
             structure preview, genome track, multiplex picker, and CRISPR mode-aware ranking.
@@ -103,7 +103,7 @@ export default function SgrnaPage() {
               <label className="label">Reuse retrieval job ID</label>
               <input className="input font-mono" value={jobIdInput}
                      onChange={e => setJobIdInput(e.target.value)}
-                     placeholder="paste job_id from a Module 1 retrieval" />
+                     placeholder="paste job_id from a Sequence Retrieval job" />
             </div>
           </section>
 

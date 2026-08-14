@@ -65,7 +65,7 @@ export default function PromoterPage() {
   return (
     <div className="grid lg:grid-cols-2 gap-6">
       <div>
-        <h1 className="text-2xl font-bold mb-1">Module 5 — Promoter Analysis</h1>
+        <h1 className="text-2xl font-bold mb-1">Promoter Analysis</h1>
         <p className="text-zinc-600 mb-4">Scan PlantCARE & PlantPAN cis-regulatory elements & TFBS.</p>
 
         <form className="card space-y-4" onSubmit={onSubmit}>

@@ -47,7 +47,7 @@ export default function VisualizePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-1">Module 6 — Visualization</h1>
+        <h1 className="text-2xl font-bold mb-1">Visualization</h1>
         <p className="text-zinc-600">
           Publication-quality cis-element maps. Provide a promoter analysis job ID.
         </p>

@@ -176,7 +176,7 @@ export default function RetrievePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-1">Module 1 — Sequence Retrieval</h1>
+      <h1 className="text-2xl font-bold mb-1">Sequence Retrieval</h1>
       <p className="text-zinc-600 mb-6">Fetch genomic sequences from public databases.</p>
 
       <div className="grid lg:grid-cols-12 gap-6 items-start">
