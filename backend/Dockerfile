@@ -8,9 +8,17 @@ ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1
 #  - ViennaRNA (provides RNAfold)
 #  - bowtie (used by some off-target backends)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential cmake git wget curl ca-certificates \
-        libgomp1 zlib1g-dev libbz2-dev liblzma-dev \
-        bowtie viennarna \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    curl \
+    ca-certificates \
+    libgomp1 \
+    zlib1g-dev \
+    libbz2-dev \
+    liblzma-dev \
+    bowtie \
     && rm -rf /var/lib/apt/lists/*
 
 # Compile cas-offinder (CPU build)
