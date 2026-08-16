@@ -269,7 +269,7 @@ function VisualizationTab({ jobId }: { jobId: string }) {
   const sequenceIds = useMemo(() => {
     const s = new Set<string>();
     allRows.forEach(r => s.add(r.sequence_id));
-    return [...s];
+    return Array.from(s);
   }, [allRows]);
 
   // Auto-pick first sequence if none selected
