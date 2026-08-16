@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   async rewrites() {
-    const api = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const api = process.env.NEXT_PUBLIC_API_URL || "https://bionexus-wyjz.onrender.com/";
     return [
       { source: "/api/:path*", destination: `${api}/api/:path*` },
       // FastAPI serves its interactive documentation at /docs (and the schema
