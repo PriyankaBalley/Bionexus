@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { fetchJson } from "@/lib/api";
 
-// ─── Colour palette matching EditEase brand-* greens ──────────────────────
+// ─── Colour palette matching BioNexus brand-* greens ──────────────────────
 const STRATEGY_META = {
   golden_gate: {
     label: "Golden Gate / MoClo",
@@ -47,7 +47,7 @@ const ANNOTATION_COLORS = {
   feature: "#f97316",
 };
 
-//─── API call to EditEase backend ──────────────────────────────────────────
+//─── API call to BioNexus backend ──────────────────────────────────────────
 async function callCloningAPI(insert, strategy, params) {
   const body = {
     insert_sequence: insert,
@@ -387,7 +387,7 @@ const EXAMPLES = [
   {
     label: "AT1G01010 sgRNA (Golden Gate)",
     strategy: "golden_gate",
-    description: "Real Cas9 guide designed by EditEase's sgRNA Design for Arabidopsis AT1G01010 — BsaI Golden Gate into a plant CRISPR vector",
+    description: "Real Cas9 guide designed by BioNexus's sgRNA Design for Arabidopsis AT1G01010 — BsaI Golden Gate into a plant CRISPR vector",
     sequence: "CGTTGAAGTAGCCATCAGCG",
     params: { enzyme: "BsaI", overhang_5: "AACG", overhang_3: "AAAC", is_sgrna: true },
   },
@@ -479,7 +479,7 @@ export default function CloningModule({ pipelineJobId = null }) {
           }}>✄</div>
           <div>
             <div style={{ fontSize: 18, fontWeight: 700, color: "#f1f5f9" }}>Cloning Design</div>
-            <div style={{ fontSize: 11, color: "#64748b" }}>EditEase</div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>BioNexus</div>
           </div>
         </div>
         {pipelineJobId && (

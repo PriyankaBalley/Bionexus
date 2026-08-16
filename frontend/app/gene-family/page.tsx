@@ -31,7 +31,7 @@ const EXAMPLES = {
   },
 };
 
-function PIBadge({ pi }) {
+function PIBadge({ pi }: { pi: number }) {
   const color = pi > 7 ? "bg-blue-100 text-blue-800" : "bg-orange-100 text-orange-800";
   const label = pi > 7 ? "Alkaline" : "Acidic";
   return (
@@ -41,7 +41,7 @@ function PIBadge({ pi }) {
   );
 }
 
-function SignalBadge({ has_sp, end }) {
+function SignalBadge({ has_sp, end }: { has_sp: boolean; end?: number }) {
   if (!has_sp) return <span className="text-gray-400 text-xs">—</span>;
   return (
     <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
@@ -50,7 +50,7 @@ function SignalBadge({ has_sp, end }) {
   );
 }
 
-function SummaryCard({ summary }) {
+function SummaryCard({ summary }: { summary: any }) {
   if (!summary) return null;
   const items = [
     { label: "Total hits", value: summary.total_hits },

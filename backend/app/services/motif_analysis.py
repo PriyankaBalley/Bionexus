@@ -1,5 +1,5 @@
 """
-Conserved Motif Analysis Service (MEME) — EditEase Module GF-3
+Conserved Motif Analysis Service (MEME) — BioNexus Tool GF-3
 Identifies conserved protein motifs across a gene family using:
   - MEME Suite REST API (meme-suite.org)
   - Local fallback: pure-Python k-mer frequency motif finder

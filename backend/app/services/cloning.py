@@ -1,5 +1,5 @@
 """
-EditEase — Cloning Design Module
+BioNexus — Cloning Design Tool
 Supports: Golden Gate / MoClo, Gibson Assembly, Traditional RE-ligation, Gateway
 """
 
@@ -521,7 +521,7 @@ def _make_genbank(insert: str, annotations: list[dict], name: str) -> str:
     length = len(insert)
     header = (
         f"LOCUS       {name[:16]:<16} {length:>6} bp    DNA     linear   SYN 01-JAN-2025\n"
-        f"DEFINITION  EditEase cloning construct.\n"
+        f"DEFINITION  BioNexus cloning construct.\n"
         f"ACCESSION   .\n"
         f"FEATURES             Location/Qualifiers\n"
     )
@@ -536,7 +536,7 @@ def _make_genbank(insert: str, annotations: list[dict], name: str) -> str:
         features += (
             f"     {gb_type:<16} {ann['start']+1}..{ann['end']}\n"
             f"                     /label=\"{ann['label']}\"\n"
-            f"                     /note=\"EditEase annotated\"\n"
+            f"                     /note=\"BioNexus annotated\"\n"
         )
     origin = "ORIGIN\n"
     for i in range(0, len(insert), 60):

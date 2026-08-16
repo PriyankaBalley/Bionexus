@@ -1,5 +1,5 @@
 """
-Gene Family Identification Service — EditEase Module GF-1
+Gene Family Identification Service — BioNexus Tool GF-1
 Identifies gene family members genome-wide using:
   - pHMMER (EBI REST API) for domain-based homolog search
   - InterProScan (EBI REST API) for domain confirmation

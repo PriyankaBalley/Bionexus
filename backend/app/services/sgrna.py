@@ -604,7 +604,7 @@ def _write_pdf_report(rows: list[dict], path: Path, meta: dict) -> Path | None:
 
     with PdfPages(path) as pdf:
         fig = plt.figure(figsize=(11, 8.5))
-        fig.text(0.5, 0.85, "EditEase - sgRNA Design Report",
+        fig.text(0.5, 0.85, "BioNexus - sgRNA Design Report",
                  ha="center", size=22, weight="bold")
         fig.text(0.5, 0.78, f"Mode: {meta.get('mode')}  |  PAM: {meta.get('pam')}  |  "
                             f"Guide length: {meta.get('guide_length')}",

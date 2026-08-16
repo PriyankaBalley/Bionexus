@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     # App
-    APP_NAME: str = "EditEase"
+    APP_NAME: str = "BioNexus"
     APP_ENV: str = "development"
     SECRET_KEY: str = "change-me-in-production"
     CORS_ORIGINS: str = "http://localhost:3000,http://127.0.0.1:3000"

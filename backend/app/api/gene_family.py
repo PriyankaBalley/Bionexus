@@ -1,5 +1,5 @@
 """
-Gene Family Analysis Routes — EditEase API
+Gene Family Analysis Routes — BioNexus API
 Modules: GF-1 (Family Identification), GF-2 (GSDS), GF-3 (MEME Motifs)
 
 Register in main.py:

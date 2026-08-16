@@ -1,5 +1,5 @@
 """
-Gene Structure Display Service (GSDS) — EditEase Module GF-2
+Gene Structure Display Service (GSDS) — BioNexus Tool GF-2
 Computes exon-intron architecture from CDS + genomic sequence pairs
 and produces publication-ready SVG visualization data.
 

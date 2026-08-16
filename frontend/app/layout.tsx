@@ -17,7 +17,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EditEase | Promoter analysis and CRISPR guide design for plants",
+  title: "BioNexus | Promoter analysis and CRISPR guide design for plants",
   description:
     "Open-source platform linking sequence retrieval, gene family characterisation, "
     + "promoter cis-element analysis, sgRNA design and cloning design into one workflow.",
@@ -39,6 +39,7 @@ const NAV = [
   { href: "/localization", label: "Localization" },
   { href: "/sgrna", label: "sgRNA" },
   { href: "/cloning", label: "Cloning" },
+  { href: "/documentation", label: "Documentation" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="border-b border-zinc-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center h-16">
             <Link href="/" className="font-semibold text-lg tracking-tight text-zinc-900">
-              EditEase
+              BioNexus
             </Link>
             <nav className="ml-6 hidden md:flex gap-0.5 overflow-x-auto scrollbar-thin">
               {NAV.map(({ href, label }) => (
@@ -72,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-zinc-200 mt-12 bg-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 text-sm text-zinc-500">
             <div className="flex flex-col sm:flex-row gap-2 sm:items-baseline sm:justify-between">
-              <span className="font-medium text-zinc-700">EditEase v1.0</span>
+              <span className="font-medium text-zinc-700">BioNexus v1.0</span>
               <span>
                 Results are computational predictions and require experimental validation.
               </span>
@@ -83,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 © 2026 Katakam Rupini Krishna <span className="italic">et al.</span> All rights reserved.
               </span>
               <span>
-                Cite as: Katakam Rupini Krishna <span className="italic">et al.</span>, 2026. EditEase.
+                Cite as: Katakam Rupini Krishna <span className="italic">et al.</span>, 2026. BioNexus.
               </span>
             </div>
           </div>

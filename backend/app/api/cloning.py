@@ -1,5 +1,5 @@
 """
-EditEase — Cloning Module API Routes
+BioNexus — Cloning Module API Routes
 POST /api/cloning/design       — main design endpoint
 GET  /api/cloning/enzymes      — list available RE + Type IIS enzymes
 GET  /api/cloning/vectors      — list suggested vectors by strategy
