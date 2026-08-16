@@ -7,7 +7,7 @@ import Link from "next/link";
    ────────────────────────────────────────────────────────────────────── */
 
 const FACTS = [
-  { value: "7", label: "Analysis modules" },
+  { value: "12", label: "Analysis modules" },
   { value: "4", label: "PAM types" },
   { value: "42", label: "Cis-element motifs" },
   { value: "4", label: "Cloning strategies" },
@@ -30,22 +30,47 @@ const MODULES = [
     uses: "Local implementation",
   },
   {
-    step: "04", href: "/promoter", title: "Promoter analysis",
-    body: "Scan promoter sequences for cis-regulatory elements and predicted transcription factor binding sites, with an independent score threshold for each source.",
-    uses: "Curated motif library, PlantPAN (live)",
+    step: "04", href: "/orf-prediction", title: "ORF prediction",
+    body: "Scan all 6 reading frames for open reading frames and translate them, with a positional map showing every ORF found.",
+    uses: "6-frame scan (NCBI ORFfinder / EMBOSS getorf convention)",
   },
   {
-    step: "05", href: "/visualize", title: "Cis-element maps",
-    body: "Render the promoter scan as a positional map per sequence, with overlapping elements staggered into rows and both strands shown.",
-    uses: "PNG, SVG, PDF and interactive HTML output",
+    step: "05", href: "/phylogeny", title: "Phylogeny",
+    body: "Align a set of sequences and build a neighbour-joining tree from the alignment, rendered as a publication-quality figure.",
+    uses: "EBI Clustal Omega + Simple Phylogeny (live)",
   },
   {
-    step: "06", href: "/sgrna", title: "sgRNA design",
+    step: "06", href: "/promoter", title: "Promoter analysis",
+    body: "Scan promoter sequences for cis-regulatory elements and predicted transcription factor binding sites, and render the results as a positional cis-element map per sequence.",
+    uses: "Curated motif library, PlantPAN (live); PNG/SVG/PDF/HTML map output",
+  },
+  {
+    step: "07", href: "/protein-properties", title: "Protein properties",
+    body: "Compute molecular weight, theoretical pI, amino acid composition, instability index, aliphatic index and GRAVY for one or more protein sequences.",
+    uses: "ExPASy ProtParam (live)",
+  },
+  {
+    step: "08", href: "/secondary-structure", title: "Secondary structure prediction",
+    body: "Predict per-residue Helix / Sheet / Turn / Coil assignment from a protein sequence using single-residue directional information statistics.",
+    uses: "GOR I (Garnier, Osguthorpe & Robson, 1978)",
+  },
+  {
+    step: "09", href: "/transmembrane", title: "Transmembrane & signal peptide prediction",
+    body: "Predict transmembrane helix topology and signal peptides together, rendered as a topology diagram per sequence.",
+    uses: "EBI Phobius (live)",
+  },
+  {
+    step: "10", href: "/localization", title: "Subcellular localization",
+    body: "Predict N-terminal targeting peptides (signal peptide, mitochondrial or chloroplast transfer peptide) and cross-check against an independent localization classifier.",
+    uses: "DTU TargetP-2.0 (live) + WoLF PSORT (live)",
+  },
+  {
+    step: "11", href: "/sgrna", title: "sgRNA design",
     body: "Enumerate protospacers next to a chosen PAM, then rank them on predicted cutting efficiency, off-target profile and guide secondary structure for knockout, CRISPRi or CRISPRa.",
     uses: "Doench 2016, Moreno-Mateos, CRISPRater, CFD, ViennaRNA",
   },
   {
-    step: "07", href: "/cloning", title: "Cloning design",
+    step: "12", href: "/cloning", title: "Cloning design",
     body: "Turn a guide or insert into an ordering-ready construct: oligos and primers with melting temperature and GC content, internal restriction site conflicts flagged, and an annotated construct record.",
     uses: "Golden Gate, Gibson, restriction–ligation, Gateway",
   },
@@ -62,7 +87,7 @@ const GUIDE = [
   },
   {
     n: "3", title: "Carry results forward",
-    body: "Each finished job keeps its output files on the server. Paste a promoter analysis job identifier into the Cis-element maps module to draw its figures rather than resubmitting the sequences. Every job stays reachable from the Jobs page by its identifier.",
+    body: "Each finished job keeps its output files on the server. Paste a retrieval or promoter analysis job identifier into a later module's own \"reuse job ID\" field to feed its output forward, rather than resubmitting the sequences by hand.",
   },
   {
     n: "4", title: "Set thresholds deliberately",
@@ -82,6 +107,13 @@ const REFERENCES = [
   "Bae S, Park J, Kim J-S. Cas-OFFinder: a fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. Bioinformatics 2014;30:1473–1475.",
   "Lescot M, Déhais P, Thijs G, et al. PlantCARE, a database of plant cis-acting regulatory elements. Nucleic Acids Research 2002;30:325–327.",
   "Potter SC, Luciani A, Eddy SR, et al. HMMER web server: 2018 update. Nucleic Acids Research 2018;46:W200–W204.",
+  "Gasteiger E, Hoogland C, Gattiker A, et al. Protein Identification and Analysis Tools on the ExPASy Server. In: Walker JM (ed), The Proteomics Protocols Handbook, Humana Press, 2005;571–607.",
+  "Garnier J, Osguthorpe DJ, Robson B. Analysis of the accuracy and implications of simple methods for predicting the secondary structure of globular proteins. J Mol Biol 1978;120:97–120.",
+  "Käll L, Krogh A, Sonnhammer ELL. A combined transmembrane topology and signal peptide prediction method. J Mol Biol 2004;338:1027–1036.",
+  "Sievers F, Wilm A, Dineen D, et al. Fast, scalable generation of high-quality protein multiple sequence alignments using Clustal Omega. Molecular Systems Biology 2011;7:539.",
+  "Saitou N, Nei M. The neighbor-joining method: a new method for reconstructing phylogenetic trees. Molecular Biology and Evolution 1987;4:406–425.",
+  "Almagro Armenteros JJ, Salvatore M, Emanuelsson O, et al. Detecting sequence signals in targeting peptides using deep learning. Life Science Alliance 2019;2(5):e201900429.",
+  "Horton P, Park K-J, Obayashi T, et al. WoLF PSORT: protein localization predictor. Nucleic Acids Research 2007;35:W585–W587.",
 ];
 
 const SECTIONS = [
@@ -127,7 +159,7 @@ export default function Home() {
           Promoter analysis, gene family characterisation and CRISPR guide design for plants.
         </p>
         <p className="mt-5 max-w-3xl text-zinc-600 leading-relaxed">
-          EditEase links seven analysis steps — from characterising a gene family to preparing a
+          EditEase links twelve analysis steps — from characterising a gene family to preparing a
           cloning-ready construct — into a single workflow, so that intermediate results move
           between steps without manual reformatting. It runs published algorithms and queries
           public databases; it does not introduce scoring methods of its own.
@@ -178,7 +210,7 @@ export default function Home() {
 
       {/* Workflow */}
       <section className="py-14 border-t border-zinc-200">
-        <Heading id="workflow" eyebrow="Workflow" title="Seven modules, in the order they are used" />
+        <Heading id="workflow" eyebrow="Workflow" title="Twelve modules, in the order they are used" />
         <p className="-mt-4 mb-8 max-w-3xl text-zinc-600 leading-relaxed">
           The modules follow the order of a typical experiment, but they are independent. Any module
           can be run on its own with pasted or uploaded sequence.

@@ -8,7 +8,10 @@ from slowapi.errors import RateLimitExceeded
 
 from app.core.config import settings
 from app.core.logging import logger
-from app.api import retrieve, promoter, sgrna, jobs, health, cloning, gene_family
+from app.api import (
+    retrieve, promoter, sgrna, jobs, health, cloning, gene_family,
+    protparam, secstructure, orf, phylogeny, transmembrane, localization,
+)
 
 limiter = Limiter(key_func=get_remote_address)
 
@@ -54,6 +57,12 @@ app.include_router(sgrna.router,    prefix="/api")
 app.include_router(jobs.router,     prefix="/api")
 app.include_router(cloning.router,   prefix="/api")
 app.include_router(gene_family.router)
+app.include_router(protparam.router, prefix="/api")
+app.include_router(secstructure.router, prefix="/api")
+app.include_router(orf.router, prefix="/api")
+app.include_router(phylogeny.router, prefix="/api")
+app.include_router(transmembrane.router, prefix="/api")
+app.include_router(localization.router, prefix="/api")
 
 
 @app.get("/")

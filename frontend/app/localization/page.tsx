@@ -1,0 +1,113 @@
+"use client";
+import { useState, useRef } from "react";
+import { submitLocalization, fetchJson } from "@/lib/api";
+import LocalizationResults from "@/components/LocalizationResults";
+import { Loader2, Upload } from "lucide-react";
+
+const PLACEHOLDER =
+  ">protein_1\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQAPILSRVGDGTQDNLSGAEKAVQVKVK\n\n"
+  + "or a CSV with an \"id\" and \"sequence\" column, or one sequence per line.";
+
+export default function LocalizationPage() {
+  const [inputText, setInputText] = useState("");
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [loadingExample, setLoadingExample] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  async function loadExample() {
+    setError(null); setLoadingExample(true);
+    try {
+      const res = await fetchJson("/api/localization/example");
+      setInputText(res.input_text);
+    } catch (err: any) {
+      setError(err?.message);
+    } finally {
+      setLoadingExample(false);
+    }
+  }
+
+  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setInputText(String(reader.result || ""));
+    reader.readAsText(file);
+    e.target.value = "";
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    if (!inputText.trim()) { setError("Provide at least one protein sequence"); return; }
+    setSubmitting(true);
+    try {
+      const res = await submitLocalization({ input_text: inputText.trim() });
+      setJobId(res.job_id);
+    } catch (err: any) {
+      setError(err?.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-1">Subcellular Localization</h1>
+      <p className="text-zinc-600 mb-4">
+        Live DTU TargetP-2.0 (deep learning N-terminal targeting-peptide
+        prediction — signal peptide, mitochondrial or chloroplast transfer
+        peptide) cross-checked against live WoLF PSORT (an independent
+        localization classifier), queried as plant sequences.
+      </p>
+
+      <div className="max-w-3xl mb-4 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2">
+        WoLF PSORT's own processing backend has been intermittently slow to
+        respond — if its result is missing for a sequence, TargetP's call is
+        still shown on its own rather than the whole job failing.
+      </div>
+
+      <form className="card space-y-4 max-w-3xl" onSubmit={onSubmit}>
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label className="label mb-0">Sequence(s)</label>
+            <div className="flex items-center gap-3">
+              <button type="button" onClick={loadExample} disabled={loadingExample}
+                      className="text-xs font-medium text-brand-600 hover:underline">
+                {loadingExample ? "Loading…" : "Load example"}
+              </button>
+              <button type="button" onClick={() => fileRef.current?.click()}
+                      className="text-xs font-medium text-brand-600 hover:underline
+                                 inline-flex items-center gap-1">
+                <Upload className="h-3 w-3" />Upload file
+              </button>
+              <input ref={fileRef} type="file" accept=".fasta,.fa,.csv,.tsv,.txt"
+                     className="hidden" onChange={onFile} />
+            </div>
+          </div>
+          <textarea className="input font-mono text-xs h-40" value={inputText}
+                    onChange={e => setInputText(e.target.value)} placeholder={PLACEHOLDER} />
+          <p className="text-xs text-zinc-500 mt-1">
+            Accepts FASTA (single or multi-record), a CSV/TSV with a sequence column,
+            or one plain sequence per line. Format is auto-detected.
+          </p>
+        </div>
+
+        {error && <div className="text-red-600 text-sm">{error}</div>}
+
+        <button type="submit" disabled={submitting} className="btn btn-primary">
+          {submitting && <Loader2 className="h-4 w-4 animate-spin" />}Predict Localization
+        </button>
+      </form>
+
+      <p className="text-xs text-zinc-400 mt-3 max-w-3xl">
+        Queries live TargetP-2.0 and WoLF PSORT servers — jobs can take
+        anywhere from under a minute to several minutes depending on their load.
+      </p>
+
+      {jobId ? <LocalizationResults jobId={jobId} />
+             : <div className="card mt-4 text-zinc-500 text-sm">Submit sequences to see results here.</div>}
+    </div>
+  );
+}

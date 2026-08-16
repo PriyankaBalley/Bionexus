@@ -92,3 +92,53 @@ class SgRNAResult(BaseModel):
     structure_score: float
     composite_score: float
     rank: int
+
+
+# ── Module: Protein properties (ExPASy ProtParam, live) ─────────────────────
+class ProtParamRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="One or more protein sequences: raw sequence(s), "
+                          "FASTA, or CSV/TSV with a sequence column",
+    )
+
+
+# ── Module: Secondary structure prediction (GOR I) ───────────────────────────
+class SecondaryStructureRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="One or more protein sequences: raw sequence(s), "
+                          "FASTA, or CSV/TSV with a sequence column",
+    )
+
+
+# ── Module: ORF prediction ────────────────────────────────────────────────────
+class ORFPredictionRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="One or more nucleotide sequences: raw sequence(s), "
+                          "FASTA, or CSV/TSV with a sequence column",
+    )
+    min_aa: int = Field(25, ge=1, le=1000, description="Minimum ORF length in amino acids")
+    require_atg: bool = Field(True, description="Require ATG as the start codon")
+
+
+# ── Module: Phylogeny ─────────────────────────────────────────────────────────
+class PhylogenyRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="3+ protein or nucleotide sequences (FASTA or CSV/TSV) "
+                          "to align and build a tree from",
+    )
+
+
+# ── Module: Transmembrane + signal peptide prediction ────────────────────────
+class TransmembraneRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="One or more protein sequences: raw sequence(s), "
+                          "FASTA, or CSV/TSV with a sequence column",
+    )
+
+
+# ── Module: Subcellular localization ──────────────────────────────────────────
+class LocalizationRequest(BaseModel):
+    input_text: str = Field(
+        ..., description="One or more protein sequences: raw sequence(s), "
+                          "FASTA, or CSV/TSV with a sequence column",
+    )

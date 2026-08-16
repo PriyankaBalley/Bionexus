@@ -23,6 +23,24 @@ export const submitPromoter = (data: any) =>
 export const submitSgrna = (data: any) =>
   api.post<JobResponse>("/sgrna/design", data).then(r => r.data);
 
+export const submitProtParam = (data: any) =>
+  api.post<JobResponse>("/protparam", data).then(r => r.data);
+
+export const submitSecondaryStructure = (data: any) =>
+  api.post<JobResponse>("/secondary-structure", data).then(r => r.data);
+
+export const submitORFPrediction = (data: any) =>
+  api.post<JobResponse>("/orf", data).then(r => r.data);
+
+export const submitPhylogeny = (data: any) =>
+  api.post<JobResponse>("/phylogeny", data).then(r => r.data);
+
+export const submitTransmembrane = (data: any) =>
+  api.post<JobResponse>("/transmembrane", data).then(r => r.data);
+
+export const submitLocalization = (data: any) =>
+  api.post<JobResponse>("/localization", data).then(r => r.data);
+
 export const getJobStatus = (jobId: string) =>
   api.get<JobStatus>(`/jobs/${jobId}`).then(r => r.data);
 

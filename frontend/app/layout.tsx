@@ -30,11 +30,15 @@ const NAV = [
   { href: "/gene-family", label: "Gene family" },
   { href: "/gsds", label: "Structure" },
   { href: "/motif", label: "Motif" },
+  { href: "/orf-prediction", label: "ORF" },
+  { href: "/phylogeny", label: "Phylogeny" },
   { href: "/promoter", label: "Promoter" },
-  { href: "/visualize", label: "Maps" },
+  { href: "/protein-properties", label: "Protein properties" },
+  { href: "/secondary-structure", label: "2° structure" },
+  { href: "/transmembrane", label: "TM/signal peptide" },
+  { href: "/localization", label: "Localization" },
   { href: "/sgrna", label: "sgRNA" },
   { href: "/cloning", label: "Cloning" },
-  { href: "/jobs", label: "Jobs" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -46,12 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-semibold text-lg tracking-tight text-zinc-900">
               EditEase
             </Link>
-            <nav className="ml-10 hidden md:flex gap-1">
+            <nav className="ml-6 hidden md:flex gap-0.5 overflow-x-auto scrollbar-thin">
               {NAV.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="px-3 py-2 rounded-md text-sm text-zinc-600
+                  className="px-2.5 py-2 rounded-md text-sm text-zinc-600 whitespace-nowrap
                              hover:bg-zinc-100 hover:text-zinc-900"
                 >
                   {label}

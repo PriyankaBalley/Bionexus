@@ -17,6 +17,8 @@ def get_job_status(job_id: str) -> JobStatusResponse:
         status = JobStatus.STARTED
         if isinstance(res.info, dict):
             progress = int(res.info.get("progress", 0))
+            if "stage" in res.info:
+                result = {"stage": res.info["stage"]}
     elif state == "SUCCESS":
         status = JobStatus.SUCCESS
         progress = 100

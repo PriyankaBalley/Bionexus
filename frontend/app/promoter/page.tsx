@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { submitPromoter } from "@/lib/api";
-import JobStatus from "@/components/JobStatus";
+import PromoterResults from "@/components/PromoterResults";
 import { Loader2 } from "lucide-react";
 
 const PLACEHOLDER = `>example_promoter\nCACGTGAAACCTAGTGACGTCAATATAAATATTGACGTCAGGTAAGCCGCCAAATTGCATGCATG\nATTAATCAACTGGATAAGGTGAACGACTTGACGTCAATCAATATAAACAAAAAATTTCCAATAA`;
@@ -63,12 +63,14 @@ export default function PromoterPage() {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-6">
-      <div>
-        <h1 className="text-2xl font-bold mb-1">Promoter Analysis</h1>
-        <p className="text-zinc-600 mb-4">Scan PlantCARE & PlantPAN cis-regulatory elements & TFBS.</p>
+    <div>
+      <h1 className="text-2xl font-bold mb-1">Promoter Analysis</h1>
+      <p className="text-zinc-600 mb-4">
+        Scan PlantCARE &amp; PlantPAN cis-regulatory elements &amp; TFBS, with a
+        publication-quality cis-element map per sequence.
+      </p>
 
-        <form className="card space-y-4" onSubmit={onSubmit}>
+      <form className="card space-y-4 max-w-3xl" onSubmit={onSubmit}>
           <div>
             <div className="flex items-center justify-between mb-1">
               <label className="label mb-0">Input FASTA</label>
@@ -136,16 +138,13 @@ export default function PromoterPage() {
 
           {error && <div className="text-red-600 text-sm">{error}</div>}
 
-          <button type="submit" disabled={submitting} className="btn btn-primary w-full">
+          <button type="submit" disabled={submitting} className="btn btn-primary">
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}Run analysis
           </button>
-        </form>
-      </div>
+      </form>
 
-      <div>
-        {jobId ? <JobStatus jobId={jobId} />
-               : <div className="card text-zinc-500 text-sm">Submit an analysis to see status here.</div>}
-      </div>
+      {jobId ? <PromoterResults jobId={jobId} />
+             : <div className="card mt-4 text-zinc-500 text-sm">Submit an analysis to see results here.</div>}
     </div>
   );
 }
