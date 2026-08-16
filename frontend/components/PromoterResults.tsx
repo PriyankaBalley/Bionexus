@@ -24,7 +24,8 @@ function groupBySequence(files: JobFile[]): SeqMaps[] {
     else if (ext === "png") entry.png = f;
     else entry.others.push(f);
   }
-  return [...bySeq.values()];
+
+  return Array.from(bySeq.values());
 }
 
 const fetcher = (jobId: string) => getJobStatus(jobId);
