@@ -5,8 +5,8 @@ const nextConfig = {
   async rewrites() {
     const api = (
       process.env.NEXT_PUBLIC_API_URL ||
-      process.env.Backend_URL ||
-      "https://bionexus-wyjz.onrender.com"
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://bionexus-oqgy.onrender.com"
     ).replace(/\/+$/, "");
 
     return [
