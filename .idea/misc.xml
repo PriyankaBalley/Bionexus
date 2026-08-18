@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+<<<<<<< HEAD
     <option name="sdkName" value="Python 3.9 (Bionexus)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (Bionexus)" project-jdk-type="Python SDK" />
+=======
+    <option name="sdkName" value="Python 3.10 virtualenv at C:\Users\CNCL\PycharmProjects\Bionexus\.venv" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 virtualenv at C:\Users\CNCL\PycharmProjects\Bionexus\.venv" project-jdk-type="Python SDK" />
+>>>>>>> 7edc4e9b (Prepare BioNexus for deployment)
 </project>
