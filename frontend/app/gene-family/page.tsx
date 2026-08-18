@@ -99,14 +99,10 @@ const EXAMPLES: Record<string, GeneFamilyExample> = {
 };
 
 function PIBadge({ pi }: { pi: number }) {
-<<<<<<< HEAD
   const color =
     pi > 7
       ? "bg-blue-100 text-blue-800"
       : "bg-orange-100 text-orange-800";
-=======
-  const color = pi > 7 ? "bg-blue-100 text-blue-800" : "bg-orange-100 text-orange-800";
->>>>>>> 7edc4e9b (Prepare BioNexus for deployment)
   const label = pi > 7 ? "Alkaline" : "Acidic";
 
   return (
@@ -116,7 +112,6 @@ function PIBadge({ pi }: { pi: number }) {
   );
 }
 
-<<<<<<< HEAD
 function SignalBadge({
   has_sp,
   end,
@@ -128,10 +123,6 @@ function SignalBadge({
     return <span className="text-xs text-gray-400">—</span>;
   }
 
-=======
-function SignalBadge({ has_sp, end }: { has_sp: boolean; end?: number }) {
-  if (!has_sp) return <span className="text-gray-400 text-xs">—</span>;
->>>>>>> 7edc4e9b (Prepare BioNexus for deployment)
   return (
     <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
       SP 1–{end ?? "?"}
@@ -139,11 +130,7 @@ function SignalBadge({ has_sp, end }: { has_sp: boolean; end?: number }) {
   );
 }
 
-<<<<<<< HEAD
 function SummaryCard({ summary }: { summary?: GeneFamilySummary }) {
-=======
-function SummaryCard({ summary }: { summary: any }) {
->>>>>>> 7edc4e9b (Prepare BioNexus for deployment)
   if (!summary) return null;
 
   const items: Array<{ label: string; value: string | number | undefined }> = [
