@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     JOB_TTL_HOURS: int = 72
 
     # Redis / Celery
-    REDIS_URL: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379?ssl_cert_reqs=required"
-    CELERY_BROKER_URL: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379?ssl_cert_reqs=required"
-    CELERY_RESULT_BACKEND: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379?ssl_cert_reqs=required"
+    REDIS_URL: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379"
+    CELERY_BROKER_URL: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379"
+    CELERY_RESULT_BACKEND: str = "rediss://default:********@profound-mastodon-66490.upstash.io:6379"
 
     # NCBI
     NCBI_EMAIL: str = "user@example.com"
